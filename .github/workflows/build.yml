@@ -1,0 +1,47 @@
+
+name: Build C Programs
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: mingw-w64-ucrt-x86_64-gcc
+
+      - name: Compile C Programs
+        shell: msys2 {0}
+        run: |
+          mkdir -p exe
+
+          gcc array.c -o exe/array.exe
+          gcc graph.c -o exe/graph.exe
+          gcc sorting.c -o exe/sorting.exe
+          gcc hashing.c -o exe/hashing.exe
+          gcc employee.c -o exe/employee.exe
+          gcc infix.c -o exe/infix.exe
+          gcc postfix.c -o exe/postfix.exe -lm
+          gcc queue.c -o exe/queue.exe
+          gcc priority.c -o exe/priority.exe
+          gcc linkedlist.c -o exe/linkedlist.exe
+          gcc circularqueue.c -o exe/circularqueue.exe
+          gcc bst.c -o exe/bst.exe
+
+      - name: Upload EXE Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: C-Programs-EXE
+          path: exe/*.exe
+
