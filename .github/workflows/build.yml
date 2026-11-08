@@ -26,18 +26,20 @@ jobs:
         run: |
           mkdir -p exe
 
-          gcc 11259A229_exp1.c -o exe/array.exe
-          gcc 11259A229_exp10.c -o exe/graph.exe
-          gcc 11259A229_exp11.c -o exe/sorting.exe
-          gcc 11259A229_exp12.c -o exe/hashing.exe
-          gcc 11259A229_exp2.c -o exe/employee.exe
-          gcc 11259A229_exp3.c -o exe/infix.exe
-          gcc 11259A229_exp4.c -o exe/postfix.exe -lm
-          gcc 11259A229_exp5.c -o exe/queue.exe
-          gcc 11259A229_exp6.c -o exe/priority.exe
-          gcc 11259A229_exp7.c -o exe/linkedlist.exe
-          gcc 11259A229_exp8.c -o exe/circularqueue.exe
-          gcc 11259A229_exp9.c -o exe/bst.exe
+          for file in *.c; do
+            if [ ! -f "$file" ]; then
+              echo "No C files found!"
+              exit 1
+            fi
+
+            output="exe/${file%.c}.exe"
+
+            echo "Compiling $file..."
+
+            gcc "$file" -o "$output" -lm || exit 1
+          done
+
+          echo "All C programs compiled successfully!"
 
       - name: Upload EXE Files
         uses: actions/upload-artifact@v4
@@ -45,3 +47,4 @@ jobs:
           name: C-Programs-EXE
           path: exe/*.exe
           if-no-files-found: error
+
