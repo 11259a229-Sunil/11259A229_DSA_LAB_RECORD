@@ -26,6 +26,17 @@ jobs:
         run: |
           mkdir -p exe
 
+          echo "Checking C source files..."
+
+          for file in array.c graph.c sorting.c hashing.c employee.c infix.c postfix.c queue.c priority.c linkedlist.c circularqueue.c bst.c; do
+            if [ ! -f "$file" ]; then
+              echo "ERROR: $file not found!"
+              exit 1
+            fi
+          done
+
+          echo "All source files found. Compiling..."
+
           gcc array.c -o exe/array.exe
           gcc graph.c -o exe/graph.exe
           gcc sorting.c -o exe/sorting.exe
@@ -39,9 +50,11 @@ jobs:
           gcc circularqueue.c -o exe/circularqueue.exe
           gcc bst.c -o exe/bst.exe
 
+          echo "All C programs compiled successfully!"
+
       - name: Upload EXE Files
         uses: actions/upload-artifact@v4
         with:
           name: C-Programs-EXE
           path: exe/*.exe
-
+          if-no-files-found: error
