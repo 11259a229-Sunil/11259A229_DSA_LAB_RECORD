@@ -26,31 +26,18 @@ jobs:
         run: |
           mkdir -p exe
 
-          echo "Checking C source files..."
-
-          for file in array.c graph.c sorting.c hashing.c employee.c infix.c postfix.c queue.c priority.c linkedlist.c circularqueue.c bst.c; do
-            if [ ! -f "$file" ]; then
-              echo "ERROR: $file not found!"
-              exit 1
-            fi
-          done
-
-          echo "All source files found. Compiling..."
-
-          gcc array.c -o exe/array.exe
-          gcc graph.c -o exe/graph.exe
-          gcc sorting.c -o exe/sorting.exe
-          gcc hashing.c -o exe/hashing.exe
-          gcc employee.c -o exe/employee.exe
-          gcc infix.c -o exe/infix.exe
-          gcc postfix.c -o exe/postfix.exe -lm
-          gcc queue.c -o exe/queue.exe
-          gcc priority.c -o exe/priority.exe
-          gcc linkedlist.c -o exe/linkedlist.exe
-          gcc circularqueue.c -o exe/circularqueue.exe
-          gcc bst.c -o exe/bst.exe
-
-          echo "All C programs compiled successfully!"
+          gcc 11259A229_exp1.c -o exe/array.exe
+          gcc 11259A229_exp10.c -o exe/graph.exe
+          gcc 11259A229_exp11.c -o exe/sorting.exe
+          gcc 11259A229_exp12.c -o exe/hashing.exe
+          gcc 11259A229_exp2.c -o exe/employee.exe
+          gcc 11259A229_exp3.c -o exe/infix.exe
+          gcc 11259A229_exp4.c -o exe/postfix.exe -lm
+          gcc 11259A229_exp5.c -o exe/queue.exe
+          gcc 11259A229_exp6.c -o exe/priority.exe
+          gcc 11259A229_exp7.c -o exe/linkedlist.exe
+          gcc 11259A229_exp8.c -o exe/circularqueue.exe
+          gcc 11259A229_exp9.c -o exe/bst.exe
 
       - name: Upload EXE Files
         uses: actions/upload-artifact@v4
